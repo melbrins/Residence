@@ -1,0 +1,200 @@
+/* -------------------------------------
+ * Slider Style
+ * ------------------------------------*/
+ 
+body { width: 100%; margin: 0px; padding: 0px; }
+
+
+#start-box { width: 100%; height: 1080px; background: #fff; position: absolute; top: 0px; left: 0px; z-index: 99999999; opacity: 1; }
+#start-box.hide { opacity: 0; -webkit-transition: opacity 2s; }
+
+#start { 
+	font-size: 2em; 
+	border: 2px solid #ef7f00; 
+	color: #ef7f00; 
+	padding: 20px 50px; 
+	position: absolute; 
+	top: 50%; 
+	left: 50%;
+	text-transform: uppercase; 
+	-webkit-transition: all .2s;
+	border-radius: 10px;
+	margin-left: -100px;
+	margin-top: -100px;
+}
+
+#start:hover { 
+	background: #ef7f00;
+	color: #fff; 
+	cursor: pointer;
+}
+ 
+#box { opacity: 1; -webkit-transition: opacity 1s; }
+#box.hide { opacity: 0; }
+
+#wrapper{
+	max-width:1420px;
+	max-height:950px;
+    position:relative;
+    float: right;
+    margin: 10px;
+}
+
+#slider{
+    position:relative;
+    width: 1420px;
+	height: 950px;
+}
+
+
+/*#slider-wrapper img { width: 1280px !important; height: 700px !important; }*/
+
+.br-thumblist-previous, .br-thumblist-next { display: none; }
+
+.br-thumblist {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 465px;
+	height: 950px;
+	opacity: 1 !important;
+}
+
+.br-thumblist .br-thumblist-frame { width: 100%; height: 950px; overflow: hidden; }
+.br-thumblist .br-list-thumb { width: 465px; height: 310px; margin-bottom: 10px; -webkit-transition: all 1s; opacity: 1; }
+/*.br-thumblist .br-list-thumb:nth-child(1) { -webkit-transition-delay: .1s; }
+.br-thumblist .br-list-thumb:nth-child(2) { -webkit-transition-delay: .2s; }
+.br-thumblist .br-list-thumb:nth-child(3) { -webkit-transition-delay: .3s; }*/
+
+.br-thumblist.change .br-list-thumb { opacity: 0; }
+/*
+.br-thumblist .br-list-thumb { width: 465px; height: 310px; margin-bottom: 10px; -webkit-transition: all .5s; -webkit-transform: scale(1); }
+.br-thumblist .br-list-thumb:nth-child(1) { -webkit-transition-delay: .1s; }
+.br-thumblist .br-list-thumb:nth-child(2) { -webkit-transition-delay: .2s; }
+.br-thumblist .br-list-thumb:nth-child(3) { -webkit-transition-delay: .3s; }
+
+.br-thumblist.change .br-list-thumb { -webkit-transform: scale(0); }
+ */
+
+.br-thumblist .br-list-thumb img { width: 465px !important; height: 310px !important; }
+.br-thumblist .br-list-thumb-select { background: none; }
+
+
+
+.br-infocontent { 
+	position: absolute !important; 
+	bottom: 40px; 
+	left: 20px; 
+	width: 1880px; 
+	font-size: 42px; 
+	opacity: 1 !important;
+	-webkit-transition: all 1s;
+	-webkit-transform: translateY(0px);
+}
+.br-infocontent.change { -webkit-transform: translateY(300px); opacity: 0; }
+
+.br-infocontent .title { 
+	max-width: 1600px;
+	display: block;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 1;
+}
+
+.br-infocontent .price { float: right; font-weight: bold; color: #ef7f00; line-height: 1; }
+
+
+.caption1 {
+	background: #fff;
+	color: #404041;
+	font-size: 38px;
+	font-weight: 300;
+	width: 100%;
+	height: 32px;
+	position: absolute;
+	left: 0px;
+	top: 905px;
+	letter-spacing: 0px;
+	padding: 24px 3px;
+	-webkit-transition: all .3s;
+	-webkit-transform: translate3d(0px, 90px, 0px);
+	z-index: 999;
+}
+
+.caption1.show { -webkit-transform: translate3d(0px, 0px, 0px); }
+
+
+
+
+
+
+
+#slide-banner { 
+	position: absolute;
+	top: -35px;
+	right: -15px;
+	list-style: none;
+	z-index: 9999999;
+}
+
+#slide-banner li.Let.By, #slide-banner li.To.Let, #slide-banner li.For.Sale, #slide-banner li.Sold{
+	background:url(../images/Screen_residence_banner_sprite.png) no-repeat;
+	-webkit-transition: all .5s ease-out;
+	-webkit-transform: scale(2) translate3d(260px, -200px, 0px);
+	width: 300px;
+	height: 300px;
+	position:absolute;
+	top:0;
+	right:0;
+}
+
+#slide-banner li.Let.By{
+	background-position: -630px 0px;
+}
+
+#slide-banner li.To.Let{
+	background-position: -320px 0px;
+}
+
+#slide-banner li.For.Sale{
+	background-position: -10px 0px;
+}
+
+#slide-banner li.Sold{
+	background-position: -930px 0px;
+}
+
+#slide-banner li.Let.By.active, #slide-banner li.To.Let.active, #slide-banner li.For.Sale.active, #slide-banner li.Sold.active{
+	-webkit-transform: scale(1) translate3d(-10px, 30px, 0px);
+}
+
+
+/* ----- CLEARFIX ----- */
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+ 
+.clearfix {
+    display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+    display: block;
+}
+ 
+* html .clearfix {
+    height: 1%;
+}
+
+
+
+
+

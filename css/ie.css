@@ -1,0 +1,67 @@
+.submit_form input{
+	filter: alpha(opacity=0);
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+	opacity:0; 
+	width:108px; 
+	height:18px; 
+	position:absolute;
+	top:0;
+	left:0; 
+	z-index:10;
+	cursor:pointer;  
+}
+
+#form_search fieldset.holder{
+	width:98%;
+}
+
+#form_search ol li.single label, #form_search ol li label{
+	width:110px;
+}
+
+.valuation tr td .radio-holder{
+	right:-80px;
+}
+
+.valuation tr td .radio-holder:first-child{
+	right:0px;
+}
+
+dl dd.submenu { height: 0; }
+
+.slidecaption-wrap.bg-dark, .homepage #footer, #content #over_info #over_title{
+	background-color:none;
+	background:url('../images/dark_opacity.png');
+	background-repeat: repeat;
+}
+
+#content #over_info #over_details #over_price{
+	background-color:none;
+	background:url('../images/white_opacity.png');
+	background-repeat: repeat;
+}
+
+#result_search ul li{
+	min-width:500px;
+}
+
+#result_search ul li .search_content .short_description{
+	height:40px;
+	overflow:hidden;
+}
+
+#result_search ul li .search_content .result_link{
+	right:10px;
+}
+
+#result_search ul li .search_picture img{
+	min-height: 152px;
+	min-width: 226px;
+}
+
+.homepage #footer_home{
+	background-color:none;
+	background:url('../images/dark_opacity.png');
+	background-repeat: repeat;
+}

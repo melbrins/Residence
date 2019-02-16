@@ -1,0 +1,4 @@
+SetEnv PHP_VER 5 
+RewriteEngine on 
+AddDefaultCharset UTF-8 
+RewriteRule ^(.*)   /mnt/vol2/home/r/e/reside/public_html/test/$1 [QSA,L] 

@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c> 
+RewriteEngine On 
+RewriteCond %{QUERY_STRING}     ^query=(.*)$    [NC]
+RewriteRule ^test/info.php$       /test/info/%1      [NC,L,R=301]
+RewriteCond %{QUERY_STRING}     ^properties=(.*)&nav=([0-9]+)$    [NC]
+RewriteRule ^test/search.php$     /test/search/%1/%2      [L]
+##RewriteRule ^test/search.php?properties=(.*)&nav=([0-9]+)$     /test/search/%1/%2      [L,NC,QSA]
+##RewriteRule ^test/search/([0-9]{4})/([0-9]{2})$ /test/search.php?properties=$1&nav=$2 [L]
+</IfModule>

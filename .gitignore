@@ -1,5 +1,13 @@
 images/*.png
 images/*.jpg
+images/*.JPG
+images/*.jpeg
+slider/images/*.png
+slider/images/*.jpg
+slider/images/*.JPG
+slider/images/*.jpeg
+slider/images/thumbs/*.jpg
+slider/images/__archive/* -r
 .idea/*
 
 # osx noise

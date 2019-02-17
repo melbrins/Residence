@@ -1,0 +1,7 @@
+images/*.png
+images/*.jpg
+.idea/*
+
+# osx noise
+.DS_Store
+profile

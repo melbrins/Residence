@@ -5,10 +5,10 @@
 
 	try
 	{
-							
+
 		$Advert = $bdd->query("SELECT * FROM screen WHERE Advertising = 'true' ORDER BY Ordre");
 		$Screen = $bdd->query('SELECT * FROM screen ORDER BY Ordre');
-		$Screen_banner = $bdd->query('SELECT Category, Ordre FROM screen ORDER BY Ordre');
+		$Screen_banner = $bdd->query('SELECT * FROM screen ORDER BY Ordre');
 
 	}
 

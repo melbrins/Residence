@@ -10,6 +10,8 @@ slider/images/thumbs/*.jpg
 slider/images/__archive/* -r
 .idea/*
 
+static_block/bdd.php
+
 # osx noise
 .DS_Store
 profile

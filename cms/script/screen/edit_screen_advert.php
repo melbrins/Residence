@@ -10,7 +10,7 @@ $reference  = $_POST['Ref'];
 
 if(isset($_POST['delete'])){
 
-    $slider->deleteScreen($reference, $Id);
+    $slider->deleteScreen($Id);
 
 } else if (isset($_FILES['Image']) AND $_FILES['Image']['error'] == 0) {
 

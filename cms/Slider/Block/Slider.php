@@ -21,9 +21,9 @@ class Slider extends BDD
     const screenMedia_max            = '10000000';
     const screenMedia_extensions     = array('jpg', 'jpeg');
 
-    function deleteScreen ($reference, $Id) {
+    function deleteScreen ($Id) {
 
-        $screen_ordre = $this->getScreenOrderPerRef($reference);
+        $screen_ordre = $this->getScreenOrderPerId($Id);
 
         $query = $this->getPdo()->query("UPDATE screen SET Ordre= Ordre -1 WHERE Ordre > ' $screen_ordre[0] ' ");
 
@@ -138,6 +138,12 @@ class Slider extends BDD
 
     function getScreenOrderPerRef($reference){
         $query = $this->getPdo()->query("SELECT Ordre FROM screen WHERE Reference = '$reference' ");
+
+        return $query->fetch();
+    }
+
+    function getScreenOrderPerId($Id){
+        $query = $this->getPdo()->query("SELECT Ordre FROM screen WHERE ID = '$Id' ");
 
         return $query->fetch();
     }

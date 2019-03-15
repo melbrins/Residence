@@ -232,7 +232,7 @@ class Slider extends BDD
             'ordre'     => htmlentities($ordre),
             'image'     => $image,
             'thumbnail' => '',
-            'advertising' => false,
+            'advertising' => 'false',
             'repeatable' => false,
             'bedroom'   => htmlentities($data['Bedroom'])
 
@@ -255,7 +255,7 @@ class Slider extends BDD
         return $ordre;
     }
 
-    function addScreen ($POST, $image, $ordre) {
+    function addScreen ($POST, $image, $ordre, $advertising) {
         
         try
         {
@@ -263,13 +263,18 @@ class Slider extends BDD
 
             $ordre = ($this->getScreenLatestOrdre()) ? $this->getScreenLatestOrdre() : $ordre;
 
-            $property_reference = $POST['Reference'];
 
-            $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
+            if (!$advertising) {
 
-            $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
+                $property_reference = $POST['Reference'];
+                $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
+                $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
 
-            ($property) ? $this->addScreenDB($property,$property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+
+            } else {
+                $this->addScreenAdvertisingDB($POST, $reference, $image, $ordre);
+            }
 
         }
 
@@ -277,5 +282,25 @@ class Slider extends BDD
         {
             die('Erreur : ' .$e->getMessage());
         }
-    }   
+    }
+
+    function addScreenAdvertisingDB($data, $reference, $image, $ordre){
+
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Street, Advertising, Ordre, Picture, Repeatable) VALUE (:reference, :street, :advert, :ordre, :image, :repeatable)");
+
+        $query->execute(array(
+            'reference' => $reference,
+            'street' => $data['Street'],
+            'advert' => 'true',
+            'ordre' => $ordre,
+            'image' => $image,
+            'repeatable' => false
+        ));
+
+        $query->closeCursor();
+
+        header("Location:../../admin.php?page=screen");
+
+        exit;
+    }
 }

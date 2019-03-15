@@ -169,7 +169,7 @@
 
 	<?php
 
-			if($donnees['Statut'] == 'Archive'){
+            if(isset($donnees['Statut']) && $donnees['Statut'] == 'Archive'){
 				$currentpage = 'archive';
 			}
 	?>

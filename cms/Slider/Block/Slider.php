@@ -150,6 +150,16 @@ class Slider extends BDD
 
     }
 
+    function getScreenLatestOrdre(){
+
+        $query = $this->getPdo()->query("SELECT Ordre FROM screen ORDER BY Ordre DESC LIMIT 0,1");
+        $ordre = $query->fetch();
+        $ordre = $ordre[0];
+        $ordre++;
+
+        return $ordre;
+    }
+
     function generateNewReference($street){
         $reference_street = substr(htmlentities($street), 0, 3);
         $checkok = false;
@@ -168,9 +178,10 @@ class Slider extends BDD
         return $reference;
     }
 
-    function editScreen ($POST, $Id) {
+//    EDIT SCREEN
+    function editScreen ($POST, $Id, $advertising) {
 
-        $reference = $POST['Ref'];
+        $reference      = $POST['Ref'];
         $screen_details = ($reference) ? $this->getScreenDetailsPerRef($reference) : '';
 
         if ($screen_details) {
@@ -184,12 +195,18 @@ class Slider extends BDD
 
         }
 
-        $property_reference = $POST['Reference'];
+        if (!$advertising) {
 
-        $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
-        $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
+            $property_reference = $POST['Reference'];
 
-        ($property) ? $this->updateScreenDB($property,$property_reference, $category, $Id) : $this->updateScreenDB($POST, $reference, $category, $Id);
+            $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
+            $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
+
+            ($property) ? $this->updateScreenDB($property, $property_reference, $category, $Id) : $this->updateScreenDB($POST, $reference, $category, $Id);
+
+        } else {
+            $this->updateScreenAdvertisingDB($POST, $reference, $Id);
+        }
 
     }
 
@@ -214,6 +231,57 @@ class Slider extends BDD
         header("Location:../../admin.php?page=screen&edit=on&reference=".$reference);
 
         exit;
+    }
+
+    function updateScreenAdvertisingDB($data, $reference, $Id)
+    {
+        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Street= :street, Advertising= :advert, Repeatable = :repeat WHERE ID='$Id'");
+
+        $query->execute(array(
+
+            'ref'       => $reference,
+            'street'    => htmlentities($data['Street']),
+            'advert'    => 'true',
+            'repeat'    => false
+
+        ));
+
+        $query->closeCursor();
+
+        header("Location:../../admin.php?page=screen&edit=on&reference=" . $reference);
+
+        exit;
+    }
+
+//    ADD NEW SCREEN
+
+    function addScreen ($POST, $image, $ordre, $advertising) {
+        
+        try
+        {
+            $reference = $this->generateNewReference($POST['Street']);
+
+            $ordre = ($this->getScreenLatestOrdre()) ? $this->getScreenLatestOrdre() : $ordre;
+
+
+            if (!$advertising) {
+
+                $property_reference = $POST['Reference'];
+                $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
+                $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
+
+                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+
+            } else {
+                $this->addScreenAdvertisingDB($POST, $reference, $image, $ordre);
+            }
+
+        }
+
+        catch(Exception $e)
+        {
+            die('Erreur : ' .$e->getMessage());
+        }
     }
 
     function addScreenDB($data, $reference, $category, $image, $ordre) {
@@ -243,45 +311,6 @@ class Slider extends BDD
         header("Location:../../admin.php?page=screen");
 
         exit;
-    }
-
-    function getScreenLatestOrdre(){
-
-        $query = $this->getPdo()->query("SELECT Ordre FROM screen ORDER BY Ordre DESC LIMIT 0,1");
-        $ordre = $query->fetch();
-        $ordre = $ordre[0];
-        $ordre++;
-
-        return $ordre;
-    }
-
-    function addScreen ($POST, $image, $ordre, $advertising) {
-        
-        try
-        {
-            $reference = $this->generateNewReference($POST['Street']);
-
-            $ordre = ($this->getScreenLatestOrdre()) ? $this->getScreenLatestOrdre() : $ordre;
-
-
-            if (!$advertising) {
-
-                $property_reference = $POST['Reference'];
-                $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
-                $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
-
-                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
-
-            } else {
-                $this->addScreenAdvertisingDB($POST, $reference, $image, $ordre);
-            }
-
-        }
-
-        catch(Exception $e)
-        {
-            die('Erreur : ' .$e->getMessage());
-        }
     }
 
     function addScreenAdvertisingDB($data, $reference, $image, $ordre){

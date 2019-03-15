@@ -107,8 +107,6 @@ class Slider extends BDD
         $image_source   = imagecreatefromjpeg($image['tmp_name']) or die ("Erreur");
         imagejpeg($image_source, SELF::screenMedia_path_master.$image_fullName);
 
-        imagedestroy($image);
-
         return $image_fullName;
 
     }
@@ -152,32 +150,36 @@ class Slider extends BDD
 
     }
 
-    function editScreen ($POST, $Id) {
-        $reference = $POST['Ref'];
+    function generateNewReference($street){
+        $reference_street = substr(htmlentities($street), 0, 3);
+        $checkok = false;
 
+        while($checkok != true){
+
+            $reference_number = rand (100000, 999999);
+            $reference = $reference_street."-".$reference_number;
+
+            $checkref = $this->getScreenDetailsPerRef($reference);
+
+            $checkok = ($checkref) ? false : true;
+
+        }
+
+        return $reference;
+    }
+
+    function editScreen ($POST, $Id) {
+
+        $reference = $POST['Ref'];
         $screen_details = ($reference) ? $this->getScreenDetailsPerRef($reference) : '';
 
         if ($screen_details) {
 
             // =================================================
             // REGENERATE A REFERENCE IF STREET NAME HAS CHANGED
-            // TODO: move this into its own function
             // =================================================
             if ($POST['Street'] != $screen_details['Street']) {
-                var_dump('different');
-                $reference_street = substr(htmlentities($POST['Street']), 0, 3);
-                $checkok = false;
-
-                while($checkok != true){
-
-                    $reference_number = rand (100000, 999999);
-                    $reference = $reference_street."-".$reference_number;
-
-                    $checkref = $this->getScreenDetailsPerRef($reference);
-
-                    $checkok = ($checkref) ? false : true;
-
-                }
+                $reference = $this->generateNewReference($POST['Street']);
             }
 
         }
@@ -214,7 +216,66 @@ class Slider extends BDD
         exit;
     }
 
-    function addScreen () {
+    function addScreenDB($data, $reference, $category, $image, $ordre) {
 
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom)");
+
+        $query->execute(array(
+            'reference' => $reference,
+            'category'  => $category,
+            'type'      => htmlentities($data['Type']),
+            'street'    => htmlentities($data['Street']),
+            'postcode'  => htmlentities($data['Postcode']),
+            'area'      => htmlentities($data['Area']),
+            'price'     => htmlentities($data['Price']),
+            'per'       => htmlentities($data['PricePer']),
+            'ordre'     => htmlentities($ordre),
+            'image'     => $image,
+            'thumbnail' => '',
+            'advertising' => false,
+            'repeatable' => false,
+            'bedroom'   => htmlentities($data['Bedroom'])
+
+        ));
+
+        $query->closeCursor();
+
+        header("Location:../../admin.php?page=screen");
+
+        exit;
     }
+
+    function getScreenLatestOrdre(){
+
+        $query = $this->getPdo()->query("SELECT Ordre FROM screen ORDER BY Ordre DESC LIMIT 0,1");
+        $ordre = $query->fetch();
+        $ordre = $ordre[0];
+        $ordre++;
+
+        return $ordre;
+    }
+
+    function addScreen ($POST, $image, $ordre) {
+        
+        try
+        {
+            $reference = $this->generateNewReference($POST['Street']);
+
+            $ordre = ($this->getScreenLatestOrdre()) ? $this->getScreenLatestOrdre() : $ordre;
+
+            $property_reference = $POST['Reference'];
+
+            $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
+
+            $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
+
+            ($property) ? $this->addScreenDB($property,$property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+
+        }
+
+        catch(Exception $e)
+        {
+            die('Erreur : ' .$e->getMessage());
+        }
+    }   
 }

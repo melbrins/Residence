@@ -3,6 +3,7 @@
 	//CHECK LOG AND PDO STATEMENT
 	include 'static_block/checklog.php';
 
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@
 	}
 
 	try{
-								
+
 			//We take on the database the property we want to edit.
 			$Property = $bdd->query("SELECT * FROM screen WHERE Reference='$ref'");
 			$PropertyScreen = $bdd->query("SELECT * FROM screen");
@@ -303,7 +304,7 @@
 
 	<?php
 
-			if($donnees['Statut'] == 'Archive'){
+			if(isset($donnees['Statut']) && $donnees['Statut'] == 'Archive'){
 				$currentpage = 'archive';
 			}
 	?>

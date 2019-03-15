@@ -102,7 +102,7 @@ if(isset($_GET['delete_cover']))
 			</div>
 			<?php
 		}
-if(isset($_GET['reference']) AND $_GET['reference'] == no)
+if(isset($_GET['reference']) AND $_GET['reference'] == 'no')
 		{
 			?>
 			<div id="msg">

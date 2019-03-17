@@ -6,7 +6,7 @@
  * Time: 14:36
  */
 
-require_once "../../static_block/res2_bdd.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/cms/static_block/res2_bdd.php";
 
 class Slider extends BDD
 {
@@ -20,6 +20,68 @@ class Slider extends BDD
     const screenMedia_path_master    = SELF::screenMedia_path . 'master/';
     const screenMedia_max            = '10000000';
     const screenMedia_extensions     = array('jpg', 'jpeg');
+
+    const screenProxy = 'cms/Slider/Proxy/Proxy.php';
+
+    function resizeImages(){
+
+        $master         = glob($_SERVER['DOCUMENT_ROOT'] . '/slider/images/master/*.jpg');
+        $i = 0;
+
+        foreach($master as $file){
+
+            // Resize and save main image
+            $image_new        = $this->resizeScreenImage($file,SELF::screen_width, SELF::screen_height);
+            imagejpeg($image_new , SELF::screenMedia_path.basename($file));
+            $i++;
+
+            // Resize and save thumb image
+            $imageThumb_new   = $this->resizeScreenImage($file,SELF::screenThumb_width, SELF::screenThumb_height);
+            imagejpeg($imageThumb_new , SELF::screenMedia_path_thumbs.basename($file));
+            $i++;
+
+        }
+
+        return $i;
+
+    }
+
+    function refreshImages(){
+
+        $screen_images  = $this->getScreenImages();
+        $i              = 0;
+        $slider         = glob($_SERVER['DOCUMENT_ROOT'] . '/slider/images/*.jpg');
+        $thumb          = glob($_SERVER['DOCUMENT_ROOT'] . '/slider/images/thumbs/*.jpg');
+        $master         = glob($_SERVER['DOCUMENT_ROOT'] . '/slider/images/master/*.jpg');
+
+        $i += $this->deleteOldImages($slider, $screen_images);
+        $i += $this->deleteOldImages($thumb, $screen_images);
+        $i += $this->deleteOldImages($master, $screen_images);
+
+        return $i;
+
+    }
+
+    function deleteOldImages($directory, $screen_images){
+
+        $i = 0;
+
+        foreach($directory as $file){
+            $file_name = basename($file);
+
+            if(is_file($file)){
+
+                if(!in_array($file_name, $screen_images)) {
+                    unlink($file);
+                    $i++;
+                }
+
+            }
+        }
+
+        return $i;
+
+    }
 
     function deleteScreen ($Id) {
 
@@ -40,12 +102,14 @@ class Slider extends BDD
     
     function resizeScreenImage ($image, $target_width, $target_height){
 
-        $image_source   = imagecreatefromjpeg($image['tmp_name']) or die ("Erreur");
+
+        $image_path = ( isset($image['tmp_name']) ) ? $image['tmp_name'] : $image;
+        $image_source = imagecreatefromjpeg($image_path) or die ("Erreur");
 
         $image_new      = imagecreatetruecolor($target_width, $target_height) or die ("Erreur");
         $image_sizes    = array();
         
-        list($image_width, $image_height) = getimagesize($image['tmp_name']);
+        list($image_width, $image_height) = getimagesize($image_path);
         $image_ratio        = $image_width / $image_height;
         $screen_ratio       = $target_width / $target_height;
 
@@ -125,6 +189,25 @@ class Slider extends BDD
         }else{
             return false;
         }
+
+    }
+
+    function getProxyUrl() {
+        return SELF::screenProxy;
+    }
+
+    function getScreenImages() {
+
+        $screen_images = array();
+
+        $query = $this->getPdo()->query("SELECT Picture FROM screen");
+
+
+        while ( $picture = $query->fetch() ){
+            $screen_images[] = $picture['Picture'];
+        }
+
+        return $screen_images;
 
     }
 

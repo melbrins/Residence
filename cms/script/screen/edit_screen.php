@@ -17,11 +17,11 @@ if(isset($_POST['delete'])){
     $image              = $_FILES['Image'];
     $image_name         = $slider->uploadScreenImage($image);
     $save_image         = $slider->saveImageDB($reference, $image_name);
-    $save_details       = $slider->editScreen($_POST, $Id);
+    $save_details       = $slider->editScreen($_POST, $Id, false);
 
 } else {
 
-    $save_details       = $slider->editScreen($_POST, $Id);
+    $save_details       = $slider->editScreen($_POST, $Id, false);
 
 }
 

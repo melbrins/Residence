@@ -2,8 +2,20 @@
 
 <?php 
 	include '../static_block/message.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/cms/Slider/Block/Slider.php';
+
+    $slider = new Slider();
+
+    $slider_proxy = $slider->getProxyUrl();
+
 ?>
 
+<div class="slider-settings">
+    <div class="ajax-message">
+    </div>
+    <button id="refresh-images" class="btn">Refresh Images</button>
+    <button id="resize-images" class="btn">Resize Images</button>
+</div>
 
 <div id="content_nutrition" class="categorie services">
 
@@ -85,3 +97,68 @@
 	</div>
 
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#refresh-images').click(function () {
+
+            $.ajax({
+                type: 'get',
+                url: '<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/'.$slider_proxy; ?>',
+                data: '?ajax=1&function2call=refresh-images',
+                success: function (e) {
+
+                    var html = '<div class="message message-success"><p>' + e + ' images have been deleted</p></div>';
+
+                    $('.ajax-message').empty();
+                    $('.ajax-message').show(400).append(html);
+
+                    setTimeout(function(){
+                        $('.ajax-message').hide(400);
+                    }, 2000);
+
+                },
+                complete: function (e) {
+                    console.log('completed');
+                    console.log(e);
+                },
+                error: function (e) {
+                    console.log('error');
+                    console.log(e);
+                }
+            });
+
+        });
+
+        $('#resize-images').click(function () {
+
+            $.ajax({
+                type: 'get',
+                url: '<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/'.$slider_proxy; ?>',
+                data: '?ajax=1&function2call=resize-images',
+                success: function (e) {
+
+                    var html = '<div class=\"message message-success\"><p>' + e + ' images have been resized.</p></div>';
+
+                    $('.ajax-message').empty();
+                    $('.ajax-message').show(400).append(html);
+
+                    setTimeout(function(){
+                        $('.ajax-message').hide(400);
+                    }, 2000);
+
+                },
+                complete: function (e) {
+                    console.log('completed');
+                    console.log(e);
+                },
+                error: function (e) {
+                    console.log('error');
+                    console.log(e);
+                }
+            });
+
+        });
+    });
+</script>

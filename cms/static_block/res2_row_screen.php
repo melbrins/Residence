@@ -2,6 +2,10 @@
 	<input type="text" class="position[]" name="<?php echo $donnees['ID']; ?>" value="<?php echo $donnees['Ordre']; ?>" size="5" tabindex=<?php echo ++$donnees['Ordre']; ?>>
 </td>
 
+<td>
+    <img src="/slider/images/thumbs/<?php echo $donnees['Picture'];?>" width="150"/>
+</td>
+
 <td class="reference_property">
 	<span><?php echo $donnees['Reference']; ?></span>
 </td>

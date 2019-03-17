@@ -184,12 +184,17 @@ h4 {
 	width: 90px;
 }
 
+.row_thumbnail{
+	width: 150px;
+	max-width: 150px;
+}
+
 .statut_property{ 
 	width: 70px;
 }
 
 .title_nutrition { 
-	width:320px;  
+	/*width:320px;  */
 	font-weight:bold;
 }
 

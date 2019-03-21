@@ -1,6 +1,5 @@
 <?php
 
-include '../../../static_block/bdd.php';
 include '../../Slider/Block/Slider.php';
 
 $slider = new Slider();

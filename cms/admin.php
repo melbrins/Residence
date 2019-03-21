@@ -103,8 +103,7 @@
 
 	try
 	{
-							
-		//On récupère tout le contenu de la table news
+
 		$Info = $bdd->query('SELECT * FROM information');
 		$PropertyScreen = $bdd->query("SELECT * FROM screen ORDER BY Ordre");
 		$About = $bdd->query('SELECT * FROM aboutus');
@@ -118,7 +117,6 @@
 
 	}
 
-	//Au cas ou ca ne fonctionne pas :
 	catch (Exception $e)
 	{
 		die('Erreur : ' . $e->getMessage());
@@ -201,7 +199,7 @@
 		<?php
 
 			$boolean=true;
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $PropertyBuy->fetch())
 				{
 
@@ -267,7 +265,7 @@
 		<?php
 			$boolean=true;
 			
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $PropertyRent->fetch())
 				{
 
@@ -335,7 +333,7 @@
 		<?php
 
 			$boolean=true;
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $PropertyShort->fetch())
 				{
 		
@@ -400,7 +398,7 @@
 				
 	<?php
 			$boolean=true;
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $PropertyCom->fetch())
 				{
 	
@@ -465,7 +463,7 @@
 	
 	<?php
 			$boolean=true;
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $PropertyComRent->fetch())
 				{
 
@@ -528,7 +526,7 @@
 	
 	<?php
 			$boolean=true;
-			//On lance la boucle pour créer toutes les images.
+			//On lance la boucle pour crï¿½er toutes les images.
 			while ($donnees = $Archive->fetch())
 				{
 	

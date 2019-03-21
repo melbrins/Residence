@@ -6,7 +6,10 @@
  * Time: 14:36
  */
 
-require_once $_SERVER['DOCUMENT_ROOT']."/cms/static_block/res2_bdd.php";
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
+require_once "../../static_block/res2_bdd.php";
 
 class Slider extends BDD
 {
@@ -16,10 +19,9 @@ class Slider extends BDD
     const screenThumb_width          = '465';
     const screenThumb_height         = '311';
     const screenMedia_path           = '../../../slider/images/';
-    const screenMedia_path_thumbs    = SELF::screenMedia_path . 'thumbs/';
-    const screenMedia_path_master    = SELF::screenMedia_path . 'master/';
+    const screenMedia_path_thumbs    = '../../../slider/images/thumbs/';
+    const screenMedia_path_master    = '../../../slider/images/master/';
     const screenMedia_max            = '10000000';
-    const screenMedia_extensions     = array('jpg', 'jpeg');
 
     const screenProxy = 'cms/Slider/Proxy/Proxy.php';
 
@@ -31,13 +33,13 @@ class Slider extends BDD
         foreach($master as $file){
 
             // Resize and save main image
-            $image_new        = $this->resizeScreenImage($file,SELF::screen_width, SELF::screen_height);
-            imagejpeg($image_new , SELF::screenMedia_path.basename($file));
+            $image_new        = $this->resizeScreenImage($file,Slider::screen_width, Slider::screen_height);
+            imagejpeg($image_new , Slider::screenMedia_path.basename($file));
             $i++;
 
             // Resize and save thumb image
-            $imageThumb_new   = $this->resizeScreenImage($file,SELF::screenThumb_width, SELF::screenThumb_height);
-            imagejpeg($imageThumb_new , SELF::screenMedia_path_thumbs.basename($file));
+            $imageThumb_new   = $this->resizeScreenImage($file,Slider::screenThumb_width, Slider::screenThumb_height);
+            imagejpeg($imageThumb_new , Slider::screenMedia_path_thumbs.basename($file));
             $i++;
 
         }
@@ -103,7 +105,7 @@ class Slider extends BDD
     function resizeScreenImage ($image, $target_width, $target_height){
 
 
-        $image_path = ( isset($image['tmp_name']) ) ? $image['tmp_name'] : $image;
+        $image_path = ( isset($image['tmp_name']) && $image['tmp_name'] != '/' ) ? $image['tmp_name'] : $image;
         $image_source = imagecreatefromjpeg($image_path) or die ("Erreur");
 
         $image_new      = imagecreatetruecolor($target_width, $target_height) or die ("Erreur");
@@ -133,6 +135,7 @@ class Slider extends BDD
 
     function uploadScreenImage ($image) {
 
+        $screenMedia_extensions     = array('jpg', 'jpeg');
         $url_referer        = $_SERVER['HTTP_REFERER'];
         $image_path         = pathinfo($image['name']);
         $image_extension    = strtolower($image_path['extension']);
@@ -143,12 +146,12 @@ class Slider extends BDD
         // TODO: move this into its own function
         // ==========================
 
-        if (filesize($image['tmp_name']) > SELF::screenMedia_max){
+        if (filesize($image['tmp_name']) > Slider::screenMedia_max){
 
             header("Location:".$url_referer."&size=on");
             exit;
 
-        } else if (!in_array($image_extension, SELF::screenMedia_extensions)) {
+        } else if (!in_array($image_extension, $screenMedia_extensions)) {
 
             header("Location:".$url_referer."&ext=on");
             exit;
@@ -160,16 +163,16 @@ class Slider extends BDD
 
 
         // Resize and save main image
-        $image_new        = $this->resizeScreenImage($image,SELF::screen_width, SELF::screen_height);
-        imagejpeg($image_new , SELF::screenMedia_path.$image_fullName);
+        $image_new        = $this->resizeScreenImage($image,Slider::screen_width, Slider::screen_height);
+        imagejpeg($image_new , Slider::screenMedia_path.$image_fullName);
 
         // Resize and save thumb image
-        $imageThumb_new   = $this->resizeScreenImage($image,SELF::screenThumb_width, SELF::screenThumb_height);
-        imagejpeg($imageThumb_new , SELF::screenMedia_path_thumbs.$image_fullName);
+        $imageThumb_new   = $this->resizeScreenImage($image,Slider::screenThumb_width, Slider::screenThumb_height);
+        imagejpeg($imageThumb_new , Slider::screenMedia_path_thumbs.$image_fullName);
 
         // Save master image
         $image_source   = imagecreatefromjpeg($image['tmp_name']) or die ("Erreur");
-        imagejpeg($image_source, SELF::screenMedia_path_master.$image_fullName);
+        imagejpeg($image_source, Slider::screenMedia_path_master.$image_fullName);
 
         return $image_fullName;
 
@@ -193,7 +196,7 @@ class Slider extends BDD
     }
 
     function getProxyUrl() {
-        return SELF::screenProxy;
+        return Slider::screenProxy;
     }
 
     function getScreenImages() {

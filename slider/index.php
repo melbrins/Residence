@@ -1,7 +1,10 @@
 <!-- PDO -->					
-<?php include '../static_block/bdd.php'; ?>
+<?php
 
-<?php 
+    include '../static_block/bdd.php';
+    include '../cms/Slider/Block/Slider.php';
+
+    $slider = new Slider();
 
 	try
 	{
@@ -12,7 +15,6 @@
 
 	}
 
-	//Au cas ou ca ne fonctionne pas :
 	catch (Exception $e)
 	{
 		die('Erreur : ' . $e->getMessage());
@@ -50,7 +52,7 @@
 			<ul id="slide-banner">
 
 				<?php
-					//On lance la boucle pour créer toutes les images.
+
 					while ($donnees = $Screen_banner->fetch())
 						{
 
@@ -64,7 +66,6 @@
 							}
 
 						}
-						//On arrete la lecture de la table.
 						$Screen_banner->closeCursor();
 
 				?>
@@ -79,20 +80,23 @@
 
 				<?php
 
-					//On lance la boucle pour créer toutes les images.
 					while ($donnees = $Screen->fetch())
 						{
 
 							// NOT DISPLAY THE ADVERT IN THE SLIDER
 							if($donnees['Advertising'] != 'true'){
+
+                                $title = $slider->getScreenTitlePerId($donnees['ID']);
+
+
 				?>
 
 						<li class="slide-item" data-delay="4" data-trans3d="tr2,tr20,tr57" data-trans2d="tr1,tr14,tr26">
 							<img src="images/<?php echo $donnees['Picture']?>" data-src="images/<?php echo $donnees['Picture']?>" data-thumb="images/thumbs/<?php echo $donnees['Picture']?>" style="max-height:950px; max-width:1420px;"/>
 							<div data-type="info" class="info1" data-align="right">
 								<div>
-									<p class="title"><?php echo $donnees['Bedroom']; ?> bed <?php echo $donnees['Type']; ?>, <?php echo $donnees['Street']; ?>, <?php echo $donnees['Area']; ?>, <?php echo $donnees['Postcode']; ?></p>
-									<p class="price">&pound;<?php echo $donnees['Price']; ?> <?php echo $donnees['PricePer']; ?></p>
+									<p class="title"><?php echo $title; ?></p>
+									<p class="price">&pound;<?php echo number_format($donnees['Price']); ?> <?php echo $donnees['PricePer']; ?></p>
 								</div>
 							</div>
 						</li> 
@@ -113,7 +117,6 @@
 							}
 
 						}
-						//On arrete la lecture de la table.
 						$Screen->closeCursor();
 
 				?>

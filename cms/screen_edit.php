@@ -3,6 +3,10 @@
 	//CHECK LOG AND PDO STATEMENT
 	include 'static_block/checklog.php';
 
+	include 'Slider/Block/Slider.php';
+
+	$slider = new Slider();
+
 
 ?>
 
@@ -29,28 +33,24 @@
 
 <?php
 
-	// WE check that we have the information to display the page properly.
 	if(isset($_GET['page']) AND isset($_GET['reference'])){
 
-		$currentpage = $_GET['page'];
-		$ref = $_GET['reference'];
+		$currentpage    = $_GET['page'];
+		$ref            = $_GET['reference'];
 
 	}else{
 
-		// If we don't have the information we need we go back on the admin page.
 		header("Location:admin.php?info=off");
 
 	}
 
 	try{
 
-			//We take on the database the property we want to edit.
-			$Property = $bdd->query("SELECT * FROM screen WHERE Reference='$ref'");
+			$Property       = $bdd->query("SELECT * FROM screen WHERE Reference='$ref'");
 			$PropertyScreen = $bdd->query("SELECT * FROM screen");
 
 		}
 
-	//Au cas ou ca ne fonctionne pas :
 	catch (Exception $e)
 	{
 		die('Erreur : ' . $e->getMessage());
@@ -83,15 +83,14 @@
 
 <?php
 
-	//On lance la boucle pour créer toutes les images.
 	while ($donnees = $Property->fetch())
 		{
-
+            $title = $slider->getScreenTitlePerId($donnees['ID']);
 ?>
 
 	<div class="page">
 
-		<h2>Screen - <?php echo $donnees['Street']; ?>, <?php echo $donnees['Area']; ?>, <?php echo $donnees['Postcode']; ?></h2>
+		<h2>Screen - <?php echo $title; ?></h2>
 
 		<?php include '../static_block/message.php'; ?>
 

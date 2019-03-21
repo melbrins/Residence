@@ -9,7 +9,7 @@
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
-require_once "../../static_block/res2_bdd.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/cms/static_block/res2_bdd.php";
 
 class Slider extends BDD
 {
@@ -212,6 +212,35 @@ class Slider extends BDD
 
         return $screen_images;
 
+    }
+
+    function getScreenTitlePerId($Id){
+
+        $query = $this->getPdo()->query( "SELECT * FROM screen WHERE ID = ' " . $Id . " ' ");
+
+        $donnees = $query->fetch();
+
+        ($donnees['Bedroom'] && $donnees['Bedroom'] > 1) ? $bed = 'beds' : $bed = 'bed';
+
+        if($donnees['Bedroom'] && $donnees['Type']) {
+            $title_array['bedroom'] = $donnees['Bedroom'] . ' '.$bed.' ' . $donnees['Type'];
+        }else if ($donnees['Bedroom'] && !$donnees['Type']) {
+            $title_array['bedroom']      = $donnees['Bedroom'] . ' '.$bed;
+        } else if (!$donnees['Bedroom'] && $donnees['Type']) {
+            $title_array['bedroom']      = $donnees['Type'];
+        }
+
+        $title_array['street']       = ($donnees['Street'])     ? $donnees['Street']            : '';
+        $title_array['area']         = ($donnees['Area'])       ? $donnees['Area']              : '';
+        $title_array['postcode']     = ($donnees['Postcode'])   ? $donnees['Postcode']          : '';
+
+        $title = '';
+
+        foreach( $title_array as $data){
+            ($data != '') ? ($title != '') ? $title .= ', ' . $data : $title = $data : '';
+        }
+
+        return $title;
     }
 
     function getScreenDetailsPerRef($reference){

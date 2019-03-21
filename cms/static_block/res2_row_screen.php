@@ -1,3 +1,7 @@
+<?php
+    $title = $slider->getScreenTitlePerId($donnees['ID']);
+?>
+
 <td class="order_property">
 	<input type="text" class="position[]" name="<?php echo $donnees['ID']; ?>" value="<?php echo $donnees['Ordre']; ?>" size="5" tabindex=<?php echo ++$donnees['Ordre']; ?>>
 </td>
@@ -19,7 +23,7 @@
 </td>
 
 <td class="title_nutrition">
-	<span><?php echo $donnees['Street']; ?>, <?php echo $donnees['Area']; ?>, <?php echo $donnees['Postcode']; ?></span>
+	<span><?php echo $title; ?></span>
 </td>
 
 <td class="link_property">

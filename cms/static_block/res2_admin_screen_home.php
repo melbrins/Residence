@@ -2,6 +2,9 @@
 
 <?php
 	include '../static_block/message.php';
+	include 'Slider/Block/Slider.php';
+
+	$slider = new Slider();
 ?>
 
 <div class="slider-settings">
@@ -30,7 +33,6 @@
 					$num_rows = $PropertyScreen->rowCount();
 					$num_rows--;
 
-					//On lance la boucle pour créer toutes les images.
 					while ($donnees = $PropertyScreen->fetch())
 						{
 
@@ -66,7 +68,6 @@
 							}
 						}
 
-						//On arrete la lecture de la table.
 						$PropertyScreen->closeCursor();
 
 					?>

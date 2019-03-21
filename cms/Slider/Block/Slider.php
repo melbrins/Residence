@@ -453,4 +453,23 @@ class Slider extends BDD
 
         exit;
     }
+
+//    SCREEN SETTINGS
+    function getScreenSettings(){
+
+        $query = $this->getPdo()->query("SELECT * FROM screen_settings");
+
+        return $query->fetch();
+    }
+
+    function updateSliderSettings($style = '3d'){
+
+        $query = $this->getPdo()->prepare("UPDATE screen_settings SET style = :style WHERE id = '1' ");
+
+        $query->execute(array(
+            'style' => $style
+        ));
+
+        return 'success';
+    }
 }

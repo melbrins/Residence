@@ -6,6 +6,10 @@
 
     $slider = new Slider();
 
+    $slider_settings = $slider->getScreenSettings();
+
+    $slider_style = $slider_settings['style'];
+
 	try
 	{
 
@@ -73,9 +77,7 @@
 
 		<div id="wrapper" class="wrapper" >
 
-			
-
-			<div id="slider" class="cute-slider" data-width="1420" data-height="950" data-force="">
+			<div id="slider" class="cute-slider" data-width="1420" data-height="950" data-force="<?php echo $slider_style; ?>">
 				<ul data-type="slides">
 
 				<?php

@@ -5,6 +5,10 @@
 	include 'Slider/Block/Slider.php';
 
 	$slider = new Slider();
+
+    $slider_settings = $slider->getScreenSettings();
+
+    $slider_style = $slider_settings['style'];
 ?>
 
 <div class="slider-settings">
@@ -12,6 +16,18 @@
     </div>
     <button id="refresh-images" class="btn">Refresh Images</button>
     <button id="resize-images" class="btn">Resize Images</button>
+
+    <form id="form_slider-settings" action="Slider/Proxy/Proxy.php">
+
+        <input type="hidden" name="function2call" value="update-slider-settings"/>
+
+        <select name="style" id="select-style">
+            <option <?php echo ($slider_style === '2d') ? 'selected' : ''; ?> value="2d">2D</option>
+            <option <?php echo ($slider_style === '3d') ? 'selected' : ''; ?> value="3d">3D</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
 </div>
 
 <div id="content_nutrition" class="categorie services">
@@ -155,5 +171,21 @@
             });
 
         });
+
+        // $('#form_slider-settings').submit(function (e){
+        //    e.preventDefault();
+        //
+        //    var form = $(this);
+        //
+        //    $.ajax({
+        //        type:'get',
+        //        url: 'Slider/Proxy/Proxy.php',
+        //        data: form.serialize(),
+        //        success: function(data){
+        //            console.log(data);
+        //        }
+        //    });
+        //
+        // });
     });
 </script>

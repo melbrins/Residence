@@ -113,6 +113,16 @@
                     <input name="Speed" id="screen-speed" value="" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
                 </div>
 
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <select name="Transition" id="slide-transition">
+                        <option value="">Random</option>
+                        <?php for ($i=1; $i <= 61; $i++){ ?>
+                            <option <?php echo($donnees['Transition'] == 'tr'.$i) ? 'selected' : ''; ?> value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
 			</div>
 
 			<div class="float">
@@ -307,6 +317,16 @@
                 <div class="res2-row">
                     <label for="screen-speed">Screen Speed</label>
                     <input name="Speed" id="screen-speed" value="" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
+                </div>
+
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <select name="Transition" id="slide-transition">
+                        <option value="">Random</option>
+                        <?php for ($i=1; $i <= 61; $i++){ ?>
+                            <option <?php echo($donnees['Transition'] == 'tr'.$i) ? 'selected' : ''; ?> value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
 
 			</div>

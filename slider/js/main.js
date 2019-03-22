@@ -165,7 +165,7 @@ function showSlideBanner(el) {
 $(document).ready(function () {
 
 	total_slides = $('.slide-item').length;
-	setTransition();
+	// setTransition();
 
 	$('#start').on('click', function () {
 		$(this).parent().addClass('hide');

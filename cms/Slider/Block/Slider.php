@@ -21,7 +21,7 @@ class Slider extends BDD
     const screenMedia_path           = '../../../slider/images/';
     const screenMedia_path_thumbs    = '../../../slider/images/thumbs/';
     const screenMedia_path_master    = '../../../slider/images/master/';
-    const screenMedia_max            = '10000000';
+    const screenMedia_max            = '20000000';
 
     const screenProxy = 'cms/Slider/Proxy/Proxy.php';
 
@@ -333,7 +333,7 @@ class Slider extends BDD
 
     function updateScreenDB($data, $reference, $category, $Id) {
 
-        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Category= :category, Type= :type, Street= :street, Postcode= :postcode, Area= :area, Price= :price, PricePer= :per, Bedroom= :bedroom, Speed = :speed WHERE ID='$Id'");
+        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Category= :category, Type= :type, Street= :street, Postcode= :postcode, Area= :area, Price= :price, PricePer= :per, Bedroom= :bedroom, Speed = :speed, Transition = :transition WHERE ID='$Id'");
 
         $query->execute(array(
 
@@ -346,7 +346,8 @@ class Slider extends BDD
             'price'     => htmlentities($data['Price']),
             'per'       => htmlentities($data['PricePer']),
             'bedroom'   => htmlentities($data['Bedroom']),
-            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL,
+            'transition'     => ($data['Transition']) ? htmlentities($data['Transition']) : NULL
 
         ));
 
@@ -357,7 +358,7 @@ class Slider extends BDD
 
     function updateScreenAdvertisingDB($data, $reference, $Id)
     {
-        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Street= :street, Advertising= :advert, Repeatable = :repeat, Speed = :speed WHERE ID='$Id'");
+        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Street= :street, Advertising= :advert, Repeatable = :repeat, Speed = :speed, Transition = :transition WHERE ID='$Id'");
 
         $query->execute(array(
 
@@ -365,7 +366,8 @@ class Slider extends BDD
             'street'    => htmlentities($data['Street']),
             'advert'    => 'true',
             'repeat'    => false,
-            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL,
+            'transition'     => ($data['Transition']) ? htmlentities($data['Transition']) : NULL
 
         ));
 
@@ -409,7 +411,7 @@ class Slider extends BDD
 
     function addScreenDB($data, $reference, $category, $image, $ordre) {
 
-        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom, Speed) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom, :speed)");
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom, Speed, Transition) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom, :speed, :transition)");
 
         $query->execute(array(
             'reference' => $reference,
@@ -426,7 +428,8 @@ class Slider extends BDD
             'advertising' => 'false',
             'repeatable' => false,
             'bedroom'   => htmlentities($data['Bedroom']),
-            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL,
+            'transition'     => ($data['Transition']) ? htmlentities($data['Transition']) : NULL
 
         ));
 
@@ -439,7 +442,7 @@ class Slider extends BDD
 
     function addScreenAdvertisingDB($data, $reference, $image, $ordre){
 
-        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Street, Advertising, Ordre, Picture, Repeatable, Speed) VALUE (:reference, :street, :advert, :ordre, :image, :repeatable, :speed)");
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Street, Advertising, Ordre, Picture, Repeatable, Speed, Transition) VALUE (:reference, :street, :advert, :ordre, :image, :repeatable, :speed, :transition)");
 
         $query->execute(array(
             'reference' => $reference,
@@ -448,7 +451,8 @@ class Slider extends BDD
             'ordre' => $ordre,
             'image' => $image,
             'repeatable' => false,
-            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL,
+            'transition'     => ($data['Transition']) ? htmlentities($data['Transition']) : NULL
         ));
 
         $query->closeCursor();
@@ -476,5 +480,25 @@ class Slider extends BDD
         ));
 
         return 'success';
+    }
+
+    function getScreenTransitions(){
+
+        for ($i=1; $i <= 61; $i++){
+            $array[$i] = 'tr'.$i;
+        }
+
+        return $array;
+    }
+
+    function getAllScreenTransitions(){
+        $string = '';
+
+        for ($i=1; $i <= 61; $i++){
+            $string .= 'tr'.$i;
+            $string .= ($i != 61) ? ', ' : '';
+        }
+
+        return $string;
     }
 }

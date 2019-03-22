@@ -119,12 +119,20 @@
                     <input name="Speed" id="screen-speed" value="<?php echo ($donnees['Speed']) ? $donnees['Speed'] : '' ?>" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
                 </div>
 
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <select name="Transition" id="slide-transition">
+                        <option value="">Random</option>
+                        <?php for ($i=1; $i <= 61; $i++){ ?>
+                            <option <?php echo($donnees['Transition'] == 'tr'.$i) ? 'selected' : ''; ?> value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
 				<div class="delete_box">
 					<input type="checkbox" name="delete" id="delete"/>
 					<label for="delete">Delete</label>
 				</div>
-
-				
 
 			</div><!-- END : picture_property -->
 

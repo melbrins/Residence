@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="res2-row">
-                    <label for="screen-speed">Screen Speed</label>
+                    <label for="screen-speed">Screen Transition</label>
                     <select name="Transition" id="slide-transition">
                         <option value="">Random</option>
                         <?php for ($i=1; $i <= 61; $i++){ ?>
@@ -320,7 +320,7 @@
                 </div>
 
                 <div class="res2-row">
-                    <label for="screen-speed">Screen Speed</label>
+                    <label for="screen-speed">Screen Transition</label>
                     <select name="Transition" id="slide-transition">
                         <option value="">Random</option>
                         <?php for ($i=1; $i <= 61; $i++){ ?>

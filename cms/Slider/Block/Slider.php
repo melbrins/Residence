@@ -395,7 +395,7 @@ class Slider extends BDD
                 $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
                 $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
 
-                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre, $POST['Transition']) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
 
             } else {
                 $this->addScreenAdvertisingDB($POST, $reference, $image, $ordre);
@@ -409,7 +409,9 @@ class Slider extends BDD
         }
     }
 
-    function addScreenDB($data, $reference, $category, $image, $ordre) {
+    function addScreenDB($data, $reference, $category, $image, $ordre, $transition) {
+
+        $data_transition = ($transition) ? $transition : $data['Transition'];
 
         $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom, Speed, Transition) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom, :speed, :transition)");
 
@@ -429,7 +431,7 @@ class Slider extends BDD
             'repeatable' => false,
             'bedroom'   => htmlentities($data['Bedroom']),
             'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL,
-            'transition'     => ($data['Transition']) ? htmlentities($data['Transition']) : NULL
+            'transition'     => ($data_transition) ? htmlentities($data_transition) : NULL
 
         ));
 

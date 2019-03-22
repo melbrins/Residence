@@ -409,7 +409,7 @@ class Slider extends BDD
 
     function addScreenDB($data, $reference, $category, $image, $ordre) {
 
-        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom)");
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Category, Type, Street, Postcode, Area, Price, PricePer, Ordre, Picture, Thumbnail, Advertising, Repeatable, Bedroom, Speed) VALUE (:reference, :category, :type, :street, :postcode, :area, :price, :per, :ordre, :image, :thumbnail, :advertising, :repeatable, :bedroom, :speed)");
 
         $query->execute(array(
             'reference' => $reference,
@@ -425,7 +425,8 @@ class Slider extends BDD
             'thumbnail' => '',
             'advertising' => 'false',
             'repeatable' => false,
-            'bedroom'   => htmlentities($data['Bedroom'])
+            'bedroom'   => htmlentities($data['Bedroom']),
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
 
         ));
 
@@ -438,7 +439,7 @@ class Slider extends BDD
 
     function addScreenAdvertisingDB($data, $reference, $image, $ordre){
 
-        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Street, Advertising, Ordre, Picture, Repeatable) VALUE (:reference, :street, :advert, :ordre, :image, :repeatable)");
+        $query = $this->getPdo()->prepare("INSERT INTO screen (Reference, Street, Advertising, Ordre, Picture, Repeatable, Speed) VALUE (:reference, :street, :advert, :ordre, :image, :repeatable, :speed)");
 
         $query->execute(array(
             'reference' => $reference,
@@ -446,7 +447,8 @@ class Slider extends BDD
             'advert' => 'true',
             'ordre' => $ordre,
             'image' => $image,
-            'repeatable' => false
+            'repeatable' => false,
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
         ));
 
         $query->closeCursor();

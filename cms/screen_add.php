@@ -2,6 +2,11 @@
 
 	//CHECK LOG AND PDO STATEMENT
 	include 'static_block/checklog.php';
+	include 'Slider/Block/Slider.php';
+
+	$slider = new Slider();
+
+	$slider_settings = $slider->getScreenSettings();
 
 	try
 		{
@@ -102,6 +107,11 @@
 				<div class="btn_upload">
 					<input type="file" name="Image"/>
 				</div>
+
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <input name="Speed" id="screen-speed" value="" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
+                </div>
 
 			</div>
 
@@ -293,6 +303,11 @@
 				<div class="btn_upload">
 					<input type="file" name="Image"/>
 				</div>
+
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <input name="Speed" id="screen-speed" value="" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
+                </div>
 
 			</div>
 

@@ -14,7 +14,7 @@ if(isset($_FILES['Image']) AND $_FILES['Image']['error'] == 0) {
 
     $image              = $_FILES['Image'];
     $image_name         = $slider->uploadScreenImage($image);
-    $save_details       = $slider->addScreen($_POST, $image_name, $screen_ordre);
+    $save_details       = $slider->addScreen($_POST, $image_name, $screen_ordre, false);
 
 }else{
 	header("Location:../../screen_add.php?page=screen&picture_screen=on");

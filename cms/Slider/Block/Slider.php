@@ -333,7 +333,10 @@ class Slider extends BDD
 
     function updateScreenDB($data, $reference, $category, $Id) {
 
-        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Category= :category, Type= :type, Street= :street, Postcode= :postcode, Area= :area, Price= :price, PricePer= :per, Bedroom= :bedroom WHERE ID='$Id'");
+        $screen_settings = $this->getScreenSettings();
+
+
+        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Category= :category, Type= :type, Street= :street, Postcode= :postcode, Area= :area, Price= :price, PricePer= :per, Bedroom= :bedroom, Speed = :speed WHERE ID='$Id'");
 
         $query->execute(array(
 
@@ -345,7 +348,8 @@ class Slider extends BDD
             'area'      => htmlentities($data['Area']),
             'price'     => htmlentities($data['Price']),
             'per'       => htmlentities($data['PricePer']),
-            'bedroom'   => htmlentities($data['Bedroom'])
+            'bedroom'   => htmlentities($data['Bedroom']),
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
 
         ));
 

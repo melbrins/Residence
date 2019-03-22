@@ -462,12 +462,13 @@ class Slider extends BDD
         return $query->fetch();
     }
 
-    function updateSliderSettings($style = '3d'){
+    function updateSliderSettings($settings){
 
-        $query = $this->getPdo()->prepare("UPDATE screen_settings SET style = :style WHERE id = '1' ");
+        $query = $this->getPdo()->prepare("UPDATE screen_settings SET style = :style, speed = :speed WHERE id = '1' ");
 
         $query->execute(array(
-            'style' => $style
+            'style' => $settings['style'],
+            'speed' => $settings['speed']
         ));
 
         return 'success';

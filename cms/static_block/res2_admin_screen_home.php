@@ -9,6 +9,7 @@
     $slider_settings = $slider->getScreenSettings();
 
     $slider_style = $slider_settings['style'];
+    $slider_speed = $slider_settings['speed'];
 ?>
 
 <div class="slider-settings">
@@ -25,6 +26,8 @@
             <option <?php echo ($slider_style === '2d') ? 'selected' : ''; ?> value="2d">2D</option>
             <option <?php echo ($slider_style === '3d') ? 'selected' : ''; ?> value="3d">3D</option>
         </select>
+
+        <input name="speed" id="input-speed" value="<?php echo ($slider_speed) ? $slider_speed : ''; ?>" type="number" />
 
         <button type="submit">Submit</button>
     </form>

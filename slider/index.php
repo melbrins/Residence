@@ -9,6 +9,7 @@
     $slider_settings = $slider->getScreenSettings();
 
     $slider_style = $slider_settings['style'];
+    $slider_speed = $slider_settings['speed'];
 
 	try
 	{
@@ -93,7 +94,7 @@
 
 				?>
 
-						<li class="slide-item" data-delay="4" data-trans3d="tr2,tr20,tr57" data-trans2d="tr1,tr14,tr26">
+						<li class="slide-item" data-delay="<?php echo $slider_speed; ?>" data-trans3d="tr2,tr20,tr57" data-trans2d="tr1,tr14,tr26">
 							<img src="images/<?php echo $donnees['Picture']?>" data-src="images/<?php echo $donnees['Picture']?>" data-thumb="images/thumbs/<?php echo $donnees['Picture']?>" style="max-height:950px; max-width:1420px;"/>
 							<div data-type="info" class="info1" data-align="right">
 								<div>
@@ -107,7 +108,7 @@
 							}else{
 				?>
 
-						<li class="slide-item" data-delay="4" data-trans3d="tr2,tr20,tr57" data-trans2d="tr1,tr14,tr26">
+						<li class="slide-item" data-delay="<?php echo $slider_speed; ?>" data-trans3d="tr2,tr20,tr57" data-trans2d="tr1,tr14,tr26">
 							<img src="images/<?php echo $donnees['Picture']?>" data-src="images/<?php echo $donnees['Picture']?>" data-thumb="images/thumbs/<?php echo $donnees['Picture']?>" style="max-height:950px; max-width:1420px;"/>
 							<div data-type="info" class="info1" data-align="right">
 								<div>

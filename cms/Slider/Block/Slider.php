@@ -333,9 +333,6 @@ class Slider extends BDD
 
     function updateScreenDB($data, $reference, $category, $Id) {
 
-        $screen_settings = $this->getScreenSettings();
-
-
         $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Category= :category, Type= :type, Street= :street, Postcode= :postcode, Area= :area, Price= :price, PricePer= :per, Bedroom= :bedroom, Speed = :speed WHERE ID='$Id'");
 
         $query->execute(array(
@@ -360,14 +357,15 @@ class Slider extends BDD
 
     function updateScreenAdvertisingDB($data, $reference, $Id)
     {
-        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Street= :street, Advertising= :advert, Repeatable = :repeat WHERE ID='$Id'");
+        $query = $this->getPdo()->prepare("UPDATE screen SET Reference = :ref, Street= :street, Advertising= :advert, Repeatable = :repeat, Speed = :speed WHERE ID='$Id'");
 
         $query->execute(array(
 
             'ref'       => $reference,
             'street'    => htmlentities($data['Street']),
             'advert'    => 'true',
-            'repeat'    => false
+            'repeat'    => false,
+            'speed'     => ($data['Speed']) ? htmlentities($data['Speed']) : NULL
 
         ));
 

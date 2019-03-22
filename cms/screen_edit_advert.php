@@ -6,6 +6,8 @@
 
 	$slider = new Slider();
 
+    $slider_settings = $slider->getScreenSettings();
+
 ?>
 
 <!DOCTYPE html>
@@ -107,6 +109,11 @@
 				<div class="btn_upload">
 					<input type="file" name="Image"/>
 				</div>
+
+                <div class="res2-row">
+                    <label for="screen-speed">Screen Speed</label>
+                    <input name="Speed" id="screen-speed" value="<?php echo ($donnees['Speed']) ? $donnees['Speed'] : '' ?>" placeholder="<?php echo($slider_settings['speed']) ? $slider_settings['speed'] : ''?>" type="number" />
+                </div>
 
 				<div class="delete_box">
 					<input type="checkbox" name="delete" id="delete"/>

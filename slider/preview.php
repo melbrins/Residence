@@ -10,6 +10,7 @@
 
     $slider_style = $slider_settings['style'];
     $slider_speed = $slider_settings['speed'];
+    $slider_layout = $slider_settings['layout'];
 
     $transitions = $slider->getAllScreenTransitions();
 
@@ -110,9 +111,9 @@
 				?>
 			</ul>
 
-		<div id="wrapper" class="wrapper" >
+		<div id="wrapper" class="wrapper <?php echo ($slider_layout) ? $slider_layout : ''; ?>">
 
-			<div id="slider" class="cute-slider" data-width="1420" data-height="950" data-force="<?php echo ($_GET['style']) ? $_GET['style'] : $slider_style; ?>">
+			<div id="slider" class="cute-slider" data-width="<?php echo ($slider_layout === 'col-1') ? '1920' : '1420'; ?>" data-height="950" data-force="<?php echo ($_GET['style']) ? $_GET['style'] : $slider_style; ?>">
 				<ul data-type="slides">
 
 				<?php
@@ -144,10 +145,6 @@
 
 						<li class="slide-item" data-delay="<?php echo (isset($_GET['speed'])) ? $_GET['speed'] : $slider_speed; ?>" data-trans3d="<?php echo ($_GET['Transition']) ? $_GET['Transition'] : $transitions; ?>" data-trans2d="<?php echo ($_GET['Transition']) ? $_GET['Transition'] : $transitions; ?>">
 							<img src="images/<?php echo $donnees['Picture']?>" data-src="images/<?php echo $donnees['Picture']?>" data-thumb="images/thumbs/<?php echo $donnees['Picture']?>" style="max-height:950px; max-width:1420px;"/>
-							<div data-type="info" class="info1" data-align="right">
-								<div>
-								</div>
-							</div>
 						</li>
 
 				<?php
@@ -162,7 +159,10 @@
 
 					<ul data-type="controls" style="z-index:999999999;">			
 						<li data-type="slideinfo" data-effect="fade"> </li>
-						<li data-type="thumblist" data-dir="vertical" data-autohide="true"> </li>
+
+                        <?php if ($slider_layout === 'col-2'){ ?>
+                            <li data-type="thumblist" data-dir="vertical" data-autohide="true"> </li>
+                        <?php } ?>
 
 						
 						<!-- <li data-type="circletimer" data-color="#333333" data-stroke="13"> </li>

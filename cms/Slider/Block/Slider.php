@@ -25,15 +25,18 @@ class Slider extends BDD
 
     const screenProxy = 'cms/Slider/Proxy/Proxy.php';
 
-    function resizeImages(){
+    function resizeImages($target_width = Slider::screen_width){
 
         $master         = glob($_SERVER['DOCUMENT_ROOT'] . '/slider/images/master/*.jpg');
         $i = 0;
 
+        $slider_settings = $this->getScreenSettings();
+        $target_width = ($slider_settings['layout'] === 'col-1') ? '1920' : '1420';
+
         foreach($master as $file){
 
             // Resize and save main image
-            $image_new        = $this->resizeScreenImage($file,Slider::screen_width, Slider::screen_height);
+            $image_new        = $this->resizeScreenImage($file, $target_width, Slider::screen_height);
             imagejpeg($image_new , Slider::screenMedia_path.basename($file));
             $i++;
 
@@ -139,6 +142,8 @@ class Slider extends BDD
         $url_referer        = $_SERVER['HTTP_REFERER'];
         $image_path         = pathinfo($image['name']);
         $image_extension    = strtolower($image_path['extension']);
+        $slider_settings = $this->getScreenSettings();
+        $target_width = ($slider_settings['layout'] === 'col-1') ? '1920' : '1420';
 
         // ==========================
         // TEST FILE
@@ -163,7 +168,7 @@ class Slider extends BDD
 
 
         // Resize and save main image
-        $image_new        = $this->resizeScreenImage($image,Slider::screen_width, Slider::screen_height);
+        $image_new        = $this->resizeScreenImage($image,$target_width, Slider::screen_height);
         imagejpeg($image_new , Slider::screenMedia_path.$image_fullName);
 
         // Resize and save thumb image
@@ -474,12 +479,18 @@ class Slider extends BDD
 
     function updateSliderSettings($settings){
 
-        $query = $this->getPdo()->prepare("UPDATE screen_settings SET style = :style, speed = :speed WHERE id = '1' ");
+        $slider_settings = $this->getScreenSettings();
+
+        $query = $this->getPdo()->prepare("UPDATE screen_settings SET style = :style, speed = :speed, layout = :layout WHERE id = '1' ");
 
         $query->execute(array(
-            'style' => $settings['style'],
-            'speed' => $settings['speed']
+            'style'     => $settings['style'],
+            'speed'     => $settings['speed'],
+            'layout'    => $settings['layout']
         ));
+
+
+        ($slider_settings['layout'] !== $settings['layout']) ? ($settings['layout'] === 'col-1') ? $this->resizeImages(1920) : $this->resizeImages(Slider::screen_width) : '';
 
         return 'success';
     }

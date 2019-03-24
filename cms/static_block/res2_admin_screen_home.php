@@ -10,6 +10,7 @@
 
     $slider_style = $slider_settings['style'];
     $slider_speed = $slider_settings['speed'];
+    $slider_layout = $slider_settings['layout'];
 ?>
 
 <div class="slider-settings">
@@ -26,6 +27,12 @@
             <option <?php echo ($slider_style === '2d') ? 'selected' : ''; ?> value="2d">2D</option>
             <option <?php echo ($slider_style === '3d') ? 'selected' : ''; ?> value="3d">3D</option>
         </select>
+
+        <select name="layout" id="select-layout">
+            <option <?php echo ($slider_layout === 'col-1') ? 'selected' : ''; ?> value="col-1">1 column - without thumbnails</option>
+            <option <?php echo ($slider_layout === 'col-2') ? 'selected' : ''; ?> value="col-2">2 columns - with thumbnails</option>
+        </select>
+
 
         <input name="speed" id="input-speed" value="<?php echo ($slider_speed) ? $slider_speed : ''; ?>" type="number" />
 

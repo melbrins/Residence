@@ -125,6 +125,8 @@
                     </select>
                 </div>
 
+                <a href="<?php echo ($donnees['Transition']) ? 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php?Transition='.$donnees['Transition']: 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php' ;?>" target="_blank">Preview</a>
+
 				<div class="delete_box">
 					<input type="checkbox" name="delete" id="delete"/>
 					<label for="delete">Delete</label>

@@ -6,7 +6,7 @@
 	<input type="text" class="position[]" name="<?php echo $donnees['ID']; ?>" value="<?php echo $donnees['Ordre']; ?>" size="5" tabindex=<?php echo ++$donnees['Ordre']; ?>>
 </td>
 
-<td>
+<td class="table-product_image">
     <img src="/slider/images/thumbs/<?php echo $donnees['Picture'];?>" width="150"/>
 </td>
 
@@ -19,7 +19,7 @@
 </td>
 
 <td class="price_property">
-	<span>&pound;<?php echo $donnees['Price']; ?></span>
+	<span>&pound;<?php echo number_format($donnees['Price']); ?></span>
 </td>
 
 <td class="title_nutrition">

@@ -104,7 +104,7 @@
 					
 				<img src="../images/new_picture.jpg" alt="new property"/>
 				
-				<div class="btn_upload">
+				<div class="res2-row btn_upload">
 					<input type="file" name="Image"/>
 				</div>
 
@@ -310,7 +310,7 @@
 					
 				<img src="../images/new_picture.jpg" alt="new property"/>
 				
-				<div class="btn_upload">
+				<div class="res2-row btn_upload">
 					<input type="file" name="Image"/>
 				</div>
 

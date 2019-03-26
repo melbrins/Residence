@@ -110,7 +110,7 @@
 
 				<img src="../slider/images/thumbs/<?php echo $donnees['Picture'];?>" alt="Screen <?php echo $donnees['Reference'];?>"/>
 				
-				<div class="btn_upload">
+				<div class="res2-row btn_upload">
 					<input type="file" name="Image"/>
 				</div>
 
@@ -131,7 +131,7 @@
 
                 </div>
 
-                <a href="<?php echo ($donnees['Transition']) ? 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php?Transition='.$donnees['Transition']: 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php' ;?>" target="_blank">Preview</a>
+                <a class="btn secondary" href="<?php echo ($donnees['Transition']) ? 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php?Transition='.$donnees['Transition']: 'http://'.$_SERVER['SERVER_NAME'].'/slider/preview.php' ;?>" target="_blank">Preview</a>
 
 				<div class="delete_box">
 					<input type="checkbox" name="delete" id="delete"/>

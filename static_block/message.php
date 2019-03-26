@@ -2,7 +2,7 @@
 {
 	if( $_GET['email'] == 'on'){
 	?>
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p> Your email address has been changed</p>
 	</div>
 	<?php
@@ -19,7 +19,7 @@
 {
 	if( $_GET['phone'] == 'on'){
 	?>
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p> Your Phone number has been changed</p>
 	</div>
 	<?php
@@ -36,7 +36,7 @@
 {
 	if( $_GET['address'] == 'on'){
 	?>
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p> Your Address has been changed</p>
 	</div>
 	<?php
@@ -53,7 +53,7 @@
 {
 	if( $_GET['psd'] == 'on'){
 	?>
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p> Your password has been changed</p>
 	</div>
 	<?php
@@ -74,7 +74,7 @@
 if(isset($_GET['edit']))
 		{
 			?>
-			<div id="msg" style="background-color: #78b879;">
+			<div id="msg" class="success">
 				<p> This article has been correctly edited !</p>
 			</div>
 			<?php
@@ -89,7 +89,7 @@ if(isset($_GET['edit']))
 if(isset($_GET['delete']))
 		{
 			?>
-			<div id="msg" style="background-color: #78b879;">
+			<div id="msg" class="success">
 				<p>Article(s) has been deleted !</p>
 			</div>
 			<?php
@@ -97,7 +97,7 @@ if(isset($_GET['delete']))
 if(isset($_GET['delete_cover']))
 		{
 			?>
-			<div id="msg" style="background-color: #78b879;">
+			<div id="msg" class="success">
 				<p>Your cover picture has been successfully deleted</p>
 			</div>
 			<?php
@@ -137,7 +137,7 @@ if(isset($_GET['select'])){
 
 	?>
 
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p>Homepage picture selected</p>
 	</div>
 	
@@ -148,7 +148,7 @@ if(isset($_GET['add']) AND $_GET['add'] == on){
 
 	?>
 
-	<div id="msg" style="background-color: #78b879;">
+	<div id="msg" class="success">
 		<p>Added correctly</p>
 	</div>
 	

@@ -1,0 +1,102 @@
+/* BTN */
+
+input, textarea, select, button{
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.btn{
+  background    : $primary-color;
+  border        : 0;
+  color         : white;
+  padding       : 0 20px;
+  cursor        : pointer;
+  border-radius : 20px;
+  font-size     : 14px;
+  height        : 40px;
+  letter-spacing: 1px;
+  display       : inline-block;
+  line-height   : 40px;
+
+  &.secondary {
+    background-color: #555;
+    font-size: 12px;
+    height: 30px;
+    border-radius: 8px;
+    color: #fff;
+    line-height   : 30px;
+  }
+}
+
+.res2-btn{
+  margin: 20px 0 40px;
+}
+
+.btn span{
+  font-weight:bold;
+}
+
+.res2-row {
+  padding: 0 0 8px 2px;
+  margin: 10px 0 20px;
+
+  label {
+    float       : left;
+    min-width       : 120px;
+    padding     : 2px 11px 0 0;
+    font-size   : 14px;
+    color       : #333;
+    line-height: 30px;
+
+    span{
+      color:$primary-color;
+    }
+  }
+
+  select{
+    background: #fff;
+    height: 30px;
+    width: auto;
+    border-color: #ddd;
+    color: #333;
+    padding-right: 20px;
+    margin-right: 20px;
+    min-width: 80px;
+  }
+
+  input{
+    background: #fff;
+    height: 30px;
+    border: 1px solid #ddd;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: #333;
+
+    &[type='file']{
+      border: none;
+      padding: 0;
+    }
+  }
+}
+
+
+.textarea {
+  border: 1px solid #dcdfe6;
+  border-top-color: #aaadb4;
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  color: #404041;
+  padding: 2px 5px;
+  width:100%;
+
+  /*margin:0 0 20px 0;*/
+}
+
+.input{
+  border: 1px solid #dcdfe6;
+  border-top-color: #aaadb4;
+  padding: 2px 5px;
+  height: 20px;
+  line-height: 20px;
+  font: 14px/20px Arial, Helvetica, sans-serif;
+  color: #404041;
+}

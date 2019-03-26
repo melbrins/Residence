@@ -1,0 +1,30 @@
+/* PROPERTY OVERVIEW */
+
+.property_overview{
+  min-width: 890px;
+
+  .picture_property{
+    width: auto;
+
+    img{
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  .details {
+    float: right;
+    margin-right: 0px;
+    width: 470px;
+    min-width: 460px;
+  }
+
+  .submit_form {
+    float: right;
+    margin-right: 0px;
+  }
+
+  .pro{
+    margin-bottom: 10px;
+  }
+}

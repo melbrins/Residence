@@ -248,9 +248,9 @@
 
 					<div class="res2-row">
 
-						<label for="per">Price Per <span>*</span></label>
+						<label for="PricePer">Price Per <span>*</span></label>
 						<span class="text-holder">
-							<select name="per" size="1">
+							<select name="PricePer" size="1">
 								
 								<option value=""> -- </option>
 								<option value="pw" <?php if($donnees['PricePer'] == 'pw'){echo('selected');}?>>Week</option>

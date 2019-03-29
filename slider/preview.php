@@ -103,7 +103,11 @@
 						<li class="<?php echo $donnees['Category'];?>"></li>
 
 				<?php
-							}
+							}else{
+                ?>
+                                <li></li>
+                <?php
+                            }
 
 						}
 						$Screen_banner->closeCursor();

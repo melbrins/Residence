@@ -105,7 +105,7 @@
 				<img src="../images/new_picture.jpg" alt="new property"/>
 				
 				<div class="res2-row btn_upload">
-					<input type="file" name="Image"/>
+					<input required="required" class="image-file" type="file" name="Image"/>
 				</div>
 
                 <div class="res2-row">
@@ -206,28 +206,28 @@
 				<div class="res2-row">
 
 					<label for="Street">Street <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Street" value=""></span>
+					<span class="text-holder"><input required="required" class="input" type="text" name="Street" value=""></span>
 
 				</div>
 
 				<div class="res2-row">
 
 					<label for="Postcode">Postcode <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Postcode" value=""></span>
+					<span class="text-holder"><input required="required" class="input" type="text" name="Postcode" value=""></span>
 
 				</div>
 
 				<div class="res2-row">
 
 					<label for="Area">Area <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Area" value=""></span>
+					<span class="text-holder"><input required="required" class="input" type="text" name="Area" value=""></span>
 
 				</div>
 
 				<div class="res2-row">
 
 					<label for="Price">Price <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Price" value=""></span>
+					<span class="text-holder"><input required="required" class="input" type="text" name="Price" value=""></span>
 
 				</div>
 
@@ -278,8 +278,8 @@
 
 				<div class="res2-row">
 
-					<label for="Reference">Reference <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Reference" value=""></span>
+					<label for="Reference">Reference</label>
+					<span class="text-holder"><input class="input" type="text" name="Reference" value=""></span>
 
 				</div>
 
@@ -311,7 +311,7 @@
 				<img src="../images/new_picture.jpg" alt="new property"/>
 				
 				<div class="res2-row btn_upload">
-					<input type="file" name="Image"/>
+					<input required="required" class="image-file" type="file" name="Image"/>
 				</div>
 
                 <div class="res2-row">
@@ -341,7 +341,7 @@
 				<div class="res2-row">
 
 					<label for="Street">Advertising Title <span>*</span></label>
-					<span class="text-holder"><input class="required input" type="text" name="Street" value=""></span>
+					<span class="text-holder"><input required="required" class="input" type="text" name="Street" value=""></span>
 
 				</div>
 
@@ -380,8 +380,8 @@
 
 </div><!-- END : page -->
 
-<!-- Change page in fonction of the url -->
-<script>
+
+<script type="text/javascript">
 
 	var page = '<?php echo $currentpage;; ?>'; 
 
@@ -392,9 +392,22 @@
 
 	});
 
+    $('.image-file').bind('change', function() {
+
+        $(this).parent().children('.message').remove();
+
+        var image_size = this.files[0].size/1024/1024;
+
+        if (image_size > 2) {
+            $(this).parent().prepend('<div class="message" style="height: 80px;"><p>Image Size: ' + Math.round(image_size) + 'MB</br>Image needs to be under 2MB</p></div>');
+        }
+    });
+
 </script>
 
 <script src="js/cms_script.js"></script>
+
+
 
 </body>
 </html>

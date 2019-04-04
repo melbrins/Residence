@@ -397,10 +397,11 @@ class Slider extends BDD
             if (!$advertising) {
 
                 $property_reference = $POST['Reference'];
+                $transition = $POST['Transition'];
                 $property = ($property_reference) ? $this->getPropertyDetailsPerRef($property_reference) : '';
                 $category = ($property) ? ($POST['Category_reference']) ? $POST['Category_reference'] : $POST['Category'] : $POST['Category'];
 
-                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre, $POST['Transition']) : $this->addScreenDB($POST, $reference, $category, $image, $ordre);
+                ($property) ? $this->addScreenDB($property, $property_reference, $category, $image, $ordre, $transition) : $this->addScreenDB($POST, $reference, $category, $image, $ordre, $transition);
 
             } else {
                 $this->addScreenAdvertisingDB($POST, $reference, $image, $ordre);

@@ -58,33 +58,39 @@
     <div style="position: absolute; top:0; left: 0; width:100vw; height: 60px; z-index:999999999; background-color:rgba(255,255,255, 0.8);">
         <form onsubmit="#">
 
-            <select name="Transition" id="slide-transition">
-                <option value="">Random</option>
-                <?php if (isset($_GET['Transition'])) { ?>
+            <div class="res2-row">
+                <select name="Transition" id="slide-transition">
+                    <option value="">Random</option>
+                    <?php if (isset($_GET['Transition'])) { ?>
 
-                    <?php for ($i=1; $i <= 61; $i++){ ?>
-                        <option <?php echo($_GET['Transition'] == 'tr'.$i) ? 'selected' : ''; ?> value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php for ($i=1; $i <= 61; $i++){ ?>
+                            <option <?php echo($_GET['Transition'] == 'tr'.$i) ? 'selected' : ''; ?> value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php } ?>
+
+                    <?php } else { ?>
+
+                        <?php for ($i=1; $i <= 61; $i++){ ?>
+                            <option value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
+                        <?php } ?>
+
                     <?php } ?>
+                </select>
 
-                <?php } else { ?>
+                <?php $style = (isset($_GET['style'])) ? $_GET['style'] : $slider_style; ?>
 
-                    <?php for ($i=1; $i <= 61; $i++){ ?>
-                        <option value="tr<?php echo $i; ?>">tr<?php echo $i; ?></option>
-                    <?php } ?>
+                <select name="style" id="select-style">
+                    <option <?php echo ($style === '2d') ? 'selected' : ''; ?> value="2d">2D</option>
+                    <option <?php echo ($style === '3d') ? 'selected' : ''; ?> value="3d">3D</option>
+                </select>
 
-                <?php } ?>
-            </select>
+                <input name="speed" id="input-speed" value="<?php echo (isset($_GET['speed'])) ? $_GET['speed'] : $slider_speed; ?>" type="number" />
 
-            <?php $style = (isset($_GET['style'])) ? $_GET['style'] : $slider_style; ?>
+                <button class="btn" type="submit">
 
-            <select name="style" id="select-style">
-                <option <?php echo ($style === '2d') ? 'selected' : ''; ?> value="2d">2D</option>
-                <option <?php echo ($style === '3d') ? 'selected' : ''; ?> value="3d">3D</option>
-            </select>
+                    <span>Submit</span>
 
-            <input name="speed" id="input-speed" value="<?php echo (isset($_GET['speed'])) ? $_GET['speed'] : $slider_speed; ?>" type="number" />
-
-            <button type="submit">Submit</button>
+                </button>
+            </div>
         </form>
     </div>
 	<div id="box" class="hide">
